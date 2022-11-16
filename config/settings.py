@@ -37,9 +37,9 @@ ALLOWED_HOSTS = []
 
 if env("RENDER"):
     ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
-    DJANGO_SUPERUSER_USERNAME=env("DJANGO_SUPERUSER_USERNAME")
-    DJANGO_SUPERUSER_PASSWORD=env("DJANGO_SUPERUSER_PASSWORD")
-    DJANGO_SUPERUSER_EMAIL=env("DJANGO_SUPERUSER_EMAIL")
+    DJANGO_SUPERUSER_USERNAME = env("DJANGO_SUPERUSER_USERNAME")
+    DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
+    DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
 
 
 # Application definition
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'rest framework',
+    'rest_framework',
     'rest_framework-authtoken',
     'hyena',
 ]
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': env.db()
-    }
+}
 
 
 # Password validation
@@ -136,7 +136,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-if not DEBUG: 
+if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
