@@ -14,8 +14,11 @@ djoser = "*"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
+django-registration-redux = "*"
 
 [dev-packages]
+flake8 = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.10"
