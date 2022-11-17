@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, SocialCard, Style
+from .models import CustomUser, SocialCard, Style, Comments
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,3 +23,8 @@ class StyleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Style
         fields = ('pk', 'card_color', 'border', 'border_color', 'font', 'font_color', 'text_align')
+        
+class CommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ('user', 'text', 'card')
