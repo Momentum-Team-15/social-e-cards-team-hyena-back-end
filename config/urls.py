@@ -3,7 +3,7 @@
 
 from django.urls import path, include
 from hyena import views
-form django.contrib.admin import site
+from django.contrib.admin import site
 from hyena.models import SocialCard
 
 urlpatterns = [
