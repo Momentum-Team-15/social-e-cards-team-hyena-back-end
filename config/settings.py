@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'rest_framework-authtoken',
+    'rest_framework.authtoken',
     'djoser',
     'hyena',
 ]
@@ -154,3 +154,5 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': False,
     'SERIALIZERS': {'user_create': 'hyena.serializer.UserRegistrationSerializer'},
 }
+
+AUTH_USER_MODEL = 'hyena.CustomUser'
