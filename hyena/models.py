@@ -74,6 +74,6 @@ class SocialCard(models.Model):
 
 
 class Comments(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     text = models.TextField(max_length=120)
     card = models.ForeignKey(SocialCard, on_delete=models.CASCADE)
