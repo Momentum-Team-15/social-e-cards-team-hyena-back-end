@@ -8,15 +8,13 @@ class CustomUser(AbstractUser):
     pass
 
 
-
-
 class Style(models.Model):
 
     TEXT_ALIGNMENT_CHOICES = (
         ('LEFT', 'LEFT'),
         ('CENTER', 'CENTER'),
         ('RIGHT', 'RIGHT')
-)
+    )
 
     CARD_COLOR_CHOICES = (
         ("White", "WHITE"),
@@ -25,7 +23,7 @@ class Style(models.Model):
         ("Green", "GREEN"),
         ("Yellow", "YELLOW"),
         ("Pink", "PINK"),
-)
+    )
 
     FONT_CHOICES = (
         ("American", "AMERICAN"),
@@ -35,7 +33,7 @@ class Style(models.Model):
         ("Optima", "OPTIMA"),
         ("Spring", "SPRING"),
         ("Utopia", "UTOPIA"),
-)
+    )
 
     BORDER_COLOR = (
         ("White", "WHITE"),
@@ -46,7 +44,7 @@ class Style(models.Model):
         ("Pink", "PINK"),
         ("Purple", "PURPLE"),
         ("Orange", "ORANGE"),
-)
+    )
 
     BORDER_CHOICES = (
         ("SOLID", "Solid"),
@@ -56,7 +54,7 @@ class Style(models.Model):
         ("HAIR", "Hair"),
         ("MEDIUM", "Medium"),
         ("DASHDOT", "Dashdot"),
-)
+    )
     card_color = models.CharField(max_length=6, choices=CARD_COLOR_CHOICES)
     font = models.CharField(max_length=12, choices=FONT_CHOICES)
     border_color = models.CharField(max_length=8, choices=BORDER_COLOR)
