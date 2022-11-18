@@ -153,7 +153,7 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': False,
-    'SERIALIZERS': {'user_create': 'hyena.serializer.UserRegistrationSerializer'},
+    'SERIALIZERS': {'user_create': 'hyena.serializers.UserSerializer'},
 }
 
 AUTH_USER_MODEL = 'hyena.CustomUser'
