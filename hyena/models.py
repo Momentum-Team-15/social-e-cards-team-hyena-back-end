@@ -75,6 +75,6 @@ def __str__(self):
 
 
 class Comments(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=120)
-    card = models.ForeignKey(SocialCard)
+    card = models.ForeignKey(SocialCard, on_delete=models.CASCADE)

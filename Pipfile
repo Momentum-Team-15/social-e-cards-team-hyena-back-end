@@ -15,6 +15,7 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 django-registration-redux = "*"
+django-rest-auth = "*"
 
 [dev-packages]
 flake8 = "*"
