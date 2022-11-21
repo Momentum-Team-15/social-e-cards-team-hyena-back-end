@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
-from .models import SocialCard, CustomUser
-from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, StyleSerializer
+from .models import SocialCard, CustomUser, Comments
+from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer
 
 # Create your views here.
 
@@ -25,8 +25,21 @@ class UserView(generics.ListCreateAPIView):
 class CardList(generics.ListCreateAPIView):
     queryset = SocialCard.objects.all()
     serializer_class = SocialCardSerializer
-    permission_classes = [permissions.IsAuthenticated]
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class CardDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SocialCard.objects.all()
+    serializer_class = SocialCardSerializer
+
+class CommentsList(generics.ListCreateAPIView):
+    queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer

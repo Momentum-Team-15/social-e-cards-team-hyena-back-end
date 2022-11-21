@@ -26,11 +26,12 @@ Once a user is a member of your site, they can create "cards." You may choose to
 ### "Pages"
 
 Users should be able to see three screens of cards:
-- a screen of cards from users they follow 
-- a screen of their own cards
-- and a screen of cards from all users 
 
-Each collection should show a reasonable number of cards, sorted with the newest first, and allow the user to click to see more. 
+- a screen of cards from users they follow
+- a screen of their own cards
+- and a screen of cards from all users
+
+Each collection should show a reasonable number of cards, sorted with the newest first, and allow the user to click to see more.
 
 If you would prefer to implement [an infinite scroll](https://www.smashingmagazine.com/2013/05/infinite-scrolling-lets-get-to-the-bottom-of-this/), go for it! The point is that the API should [paginate results](https://www.django-rest-framework.org/api-guide/pagination/).
 
@@ -59,7 +60,7 @@ During development of the front-end, you will want to be able to make requests b
 
 One way is to make functions or methods for all your API calls, but instead of having them actually make the calls at first, have them set the data you are expecting without actually making an API call. Another way is to use the provided exported mock API specification for [Mockoon](https://mockoon.com/), a tool that will run a mock server for you. You will need to [download Mockoon](https://mockoon.com/download/) and open [the file provided in this repo](social-cards-mockoon.json) (in Mockoon, select "Open environment" from the File menu). Here is documentation on [getting started with Mockoon](https://mockoon.com/tutorials/getting-started/). Here is [documentation on making API calls from your React app to Mockoon](https://mockoon.com/tutorials/react-api-call-and-mocking/).
 
-If you use Mockoon, you may want to be able to switch which server you use based on the environment your code is running in. To learn about how to access your data based on environment, [read this article on create-react-app-environments](https://medium.com/@tacomanator/environments-with-create-react-app-7b645312c09d). 
+If you use Mockoon, you may want to be able to switch which server you use based on the environment your code is running in. To learn about how to access your data based on environment, [read this article on create-react-app-environments](https://medium.com/@tacomanator/environments-with-create-react-app-7b645312c09d).
 
 You can [read more about approaches to building your front-end before the API is done in this dev.to article](https://dev.to/momentum/how-to-build-a-front-end-app-before-you-have-an-api-3ai3).
 
