@@ -11,7 +11,7 @@ class SocialCard(models.Model):
     TEXT_ALIGNMENT_CHOICES = (
         ('LEFT', 'LEFT'),
         ('CENTER', 'CENTER'),
-        ('RIGHT', 'RIGHT')
+        ('RIGHT', 'RIGHT'),
     )
 
     CARD_COLOR_CHOICES = (

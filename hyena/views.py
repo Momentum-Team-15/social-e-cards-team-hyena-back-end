@@ -14,6 +14,7 @@ def api_root(request, format=None):
     return Response({
         'ecard_list': reverse('ecard_list', request=request, format=format),
     })
+    
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
