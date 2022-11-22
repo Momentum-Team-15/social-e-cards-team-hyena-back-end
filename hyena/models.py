@@ -61,7 +61,7 @@ class SocialCard(models.Model):
     title = models.CharField(max_length=50)
     front_message = models.TextField(max_length=250)
     back_message = models.TextField(max_length=250)
-    card_color = models.TextField(max_length=10)
+    card_color = models.TextField(max_length=50)
     font = models.CharField(max_length=12, choices=FONT_CHOICES, null=True, blank=True)
     text_align = models.CharField(max_length=50,choices=TEXT_ALIGNMENT_CHOICES,null=True, blank=True)
     border_color = models.CharField(max_length=8, choices=BORDER_COLOR, default='ORANGE')
