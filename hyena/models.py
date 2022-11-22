@@ -15,6 +15,52 @@ class CustomUser(AbstractUser):
         
 
 class SocialCard(models.Model):
+        TEXT_ALIGNMENT_CHOICES = (
+        ('LEFT', 'LEFT'),
+        ('CENTER', 'CENTER'),
+        ('RIGHT', 'RIGHT')
+    )
+
+    CARD_COLOR_CHOICES = (
+        ("White", "WHITE"),
+        ("Red", "RED"),
+        ("Blue", "BLUE"),
+        ("Green", "GREEN"),
+        ("Yellow", "YELLOW"),
+        ("Pink", "PINK"),
+    )
+
+    FONT_CHOICES = (
+        ("American", "AMERICAN"),
+        ("Birckley", "BIRCKLEY"),
+        ("Brush", "BRUSH"),
+        ("Comic Sans", "COMIC SANS"),
+        ("Optima", "OPTIMA"),
+        ("Spring", "SPRING"),
+        ("Utopia", "UTOPIA"),
+    )
+
+    BORDER_COLOR = (
+        ("White", "WHITE"),
+        ("Red", "RED"),
+        ("Blue", "BLUE"),
+        ("Green", "GREEN"),
+        ("Yellow", "YELLOW"),
+        ("Pink", "PINK"),
+        ("Purple", "PURPLE"),
+        ("Orange", "ORANGE"),
+    )
+
+    BORDER_CHOICES = (
+        ("SOLID", "Solid"),
+        ("DASHED", "Dashed"),
+        ("DOTTED", "Dotted"),
+        ("DOUBLE", "Double"),
+        ("HAIR", "Hair"),
+        ("MEDIUM", "Medium"),
+        ("DASHDOT", "Dashdot"),
+    )
+    
     title = models.CharField(max_length=50)
     front_message = models.TextField(max_length=250)
     back_message = models.TextField(max_length=250)
