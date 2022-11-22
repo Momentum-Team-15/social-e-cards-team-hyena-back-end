@@ -8,10 +8,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'first_name', 'last_name',)
 
 class SocialCardSerializer(serializers.ModelSerializer):
-    # user = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    owner = serializers.SlugRelatedField(
+        slug_field="username", read_only=True)
+    
     class Meta:
         model = SocialCard
-        fields = ('id', 'owner', 'title','border_choices', 'border_color',
+        fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
                 'card_color', 'font', 'text_align', 'front_message', 'back_message')
 
 class UserCreateSerializer(serializers.ModelSerializer):

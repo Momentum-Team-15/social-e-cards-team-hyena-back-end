@@ -10,6 +10,10 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f'{self.username}'
 
+    def __str__(self):
+        return self.username
+        
+
 class SocialCard(models.Model):
     title = models.CharField(max_length=50)
     front_message = models.TextField(max_length=250)
@@ -20,7 +24,7 @@ class SocialCard(models.Model):
     border_color = models.CharField(max_length=100, default='white')
     border_choices = models.CharField(max_length=100, default='solid', null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
     
     def __str__(self):
         return f'{self.title}'
