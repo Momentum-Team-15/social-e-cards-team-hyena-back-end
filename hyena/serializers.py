@@ -16,6 +16,12 @@ class SocialCardSerializer(serializers.ModelSerializer):
         fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
                 'card_color', 'font', 'text_align', 'front_message', 'back_message')
 
+class UserCreateSerializer(serializers.ModelSerializer):
+    friends = serializers.StringRelatedField(many=True, read_only=True)
+    followers = serializers.StringRelatedField(many=True, read_only=True)
+    class Meta:
+        pass
+
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
