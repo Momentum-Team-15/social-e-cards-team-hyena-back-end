@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
         
 
 class SocialCard(models.Model):
-        TEXT_ALIGNMENT_CHOICES = (
+    TEXT_ALIGNMENT_CHOICES = (
         ('LEFT', 'LEFT'),
         ('CENTER', 'CENTER'),
         ('RIGHT', 'RIGHT')
