@@ -7,6 +7,10 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     pass
 
+    def __str__(self):
+        return self.username
+        
+
 class SocialCard(models.Model):
     TEXT_ALIGNMENT_CHOICES = (
         ('LEFT', 'LEFT'),
@@ -63,7 +67,7 @@ class SocialCard(models.Model):
     border_color = models.CharField(max_length=8, choices=BORDER_COLOR, default='ORANGE')
     border_choices = models.CharField(max_length=12, choices=BORDER_CHOICES, null =True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
     
     def __str__(self):
         return f'{self.title}'
