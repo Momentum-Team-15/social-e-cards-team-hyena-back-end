@@ -1,3 +1,4 @@
+
 ### API ENDPOINTS
 | HTTP Verbs | Endpoints | Action |
 | --- | --- | --- |
@@ -8,3 +9,4 @@
 | POST | /comments | Make a comment |
 | GET | /comments/<int:pk> | Specific comment |
 | GET | /auth/users | Register new user |
+
