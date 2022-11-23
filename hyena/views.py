@@ -33,7 +33,7 @@ class CardList(generics.ListCreateAPIView):
 class CardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SocialCard.objects.all()
     serializer_class = SocialCardSerializer
-
+    
 class CommentsList(generics.ListCreateAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
