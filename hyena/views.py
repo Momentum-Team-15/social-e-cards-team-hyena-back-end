@@ -61,6 +61,7 @@ class CardDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return SocialCard.objects.all()
 
+
 class CommentsList(generics.ListCreateAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
