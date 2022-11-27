@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.postgres.search import SearchVector
-from rest_framework import permissions, generics
+from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.viewsets import ModelViewSet
@@ -21,13 +21,25 @@ def api_root(request, format=None):
     })
 
 
+<< << << < HEAD
+
+
 class UserView(generics.ListCreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+
+
+== == == =
+class UserView(ListCreateAPIView):
+
+
+>>>>>> > main
+  queryset = CustomUser.objects.all()
+   serializer_class = UserSerializer
 
     def get_queryset(self):
         queryset = CustomUser.objects.filter(username=self.request.user)
         return queryset
+
+<< << << < HEAD
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -36,50 +48,96 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserSearchList(generics.ListAPIView):
-    model = CustomUser
-    object_name = "quotes"
+
+
+== == == =
+
+
+class UserDetail(RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer = UserSerializer
+
+
+class UserSearchList(ListAPIView):
+
+
+>>>>>> > main
+  model = CustomUser
+   object_name = "quotes"
     serializer_class = UserSerializer
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         return CustomUser.objects.annotate(search=SearchVector("username")).filter(search=query)
 
+<< << << < HEAD
+
 
 class IsUserOrReadOnly(permissions.BasePermission):
-    def has_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
+
+
+== == == =
+class IsUserOrReadOnly(BasePermission):
+
+
+>>>>>> > main
+  def has_permission(self, request, view, obj):
+       if request.method in SAFE_METHODS:
             return True
         return obj.user == request.user
 
+<< <<<< < HEAD
+
 
 class CardList(generics.ListCreateAPIView):
-    queryset = SocialCard.objects.all()
-    serializer_class = SocialCardSerializer
+== == ===
+class CardList(ListCreateAPIView):
+
+>>>>>> > main
+  queryset = SocialCard.objects.all()
+   serializer_class = SocialCardSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+<< <<<< < HEAD
+
 
 class CardDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SocialCard.objects.all()
-    serializer_class = SocialCardSerializer
-    permission_classes = (permissions.IsAuthenticated, IsUserOrReadOnly)
+== == ===
+class CardDetail(RetrieveUpdateDestroyAPIView):
+
+>>>>>> > main
+  queryset = SocialCard.objects.all()
+   serializer_class = SocialCardSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return SocialCard.objects.all()
 
 
+<< <<<< < HEAD
 class CommentsList(generics.ListCreateAPIView):
-    queryset = Comments.objects.all()
-    serializer_class = CommentsSerializer
+== == ===
+class CommentsList(ListCreateAPIView):
+
+>>>>>> > main
+  queryset = Comments.objects.all()
+   serializer_class = CommentsSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+<< <<<< < HEAD
+
 
 class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Comments.objects.all()
-    serializer_class = CommentsSerializer
+== == ===
+class CommentsDetail(RetrieveUpdateDestroyAPIView):
+
+>>>>>> > main
+  queryset = Comments.objects.all()
+   serializer_class = CommentsSerializer
 
 
 class FollowerView(generics.ListCreateAPIView):
