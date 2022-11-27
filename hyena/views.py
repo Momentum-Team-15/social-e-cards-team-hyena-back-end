@@ -8,16 +8,18 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework.pagination import PageNumberPagination
-from .models import SocialCard, CustomUser, Comments
-from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, UserCreateSerializer
+from .models import SocialCard, CustomUser, Comments, Follower
+from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, UserCreateSerializer, FollowerSerializer
 
 # Create your views here.
+
 
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
         'ecard_list': reverse('ecard_list', request=request, format=format),
     })
+
 
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
@@ -27,9 +29,11 @@ class UserView(generics.ListCreateAPIView):
         queryset = CustomUser.objects.filter(username=self.request.user)
         return queryset
 
+
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer = UserSerializer
+
 
 class UserSearchList(generics.ListAPIView):
     model = CustomUser
@@ -40,18 +44,21 @@ class UserSearchList(generics.ListAPIView):
         query = self.request.GET.get("q")
         return CustomUser.objects.annotate(search=SearchVector("username")).filter(search=query)
 
+
 class IsUserOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj.user == request.user
 
+
 class CardList(generics.ListCreateAPIView):
     queryset = SocialCard.objects.all()
     serializer_class = SocialCardSerializer
-    
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
 
 class CardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SocialCard.objects.all()
@@ -61,6 +68,7 @@ class CardDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return SocialCard.objects.all()
 
+
 class CommentsList(generics.ListCreateAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
@@ -68,6 +76,19 @@ class CommentsList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
+
+
+class FollowerView(generics.ListCreateAPIView):
+    queryset = Follower.objects.all()
+    serializer_class = FollowerSerializer
+
+    def get_queryset(self):
+        queryset = Follower.objects.filter(user=self.request.user)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
