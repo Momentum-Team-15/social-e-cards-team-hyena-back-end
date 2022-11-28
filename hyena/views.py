@@ -27,7 +27,7 @@ class AllCardList(ListCreateAPIView):
     serializer_class = SocialCardListSerializer
     permission_classes = []
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['-created_date', 'owner']
+    ordering_fields = ['created_date', 'owner']
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -43,7 +43,7 @@ class MyCardList(ListCreateAPIView):
 
     def get_queryset(self):
         queryset = self.request.user.SocialCards.all()
-        return queryset.order_by('-created_at')
+        return queryset.order_by('created_at')
 
 class UserView(ListCreateAPIView):
     queryset = CustomUser.objects.all()
