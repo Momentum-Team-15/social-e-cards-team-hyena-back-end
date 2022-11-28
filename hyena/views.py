@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.postgres.search import SearchVector
 from rest_framework.permissions import IsAuthenticated, BasePermission, IsAuthenticatedOrReadOnly, SAFE_METHODS
 from rest_framework.response import Response
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, RetrieveDestroyAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, RetrieveDestroyAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView, UpdateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
@@ -76,7 +76,7 @@ class CommentsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
 
-class AvatarView(generics.UpdateAPIView):
+class AvatarView(UpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     parser_classes = [parsers.FileUploadParser]
