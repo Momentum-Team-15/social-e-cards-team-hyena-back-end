@@ -75,7 +75,7 @@ class SocialCard(models.Model):
     def __str__(self):
         return f'{self.title}'
 
-class Comments(models.model):
+class Comments(models.Model):
     card = models.ForeignKey(SocialCard, on_delete=models.CASCADE)
     comment = models.TextField(max_length=200)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="comments")
