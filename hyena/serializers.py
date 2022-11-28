@@ -21,7 +21,7 @@ class SocialCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialCard
         fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
-                'card_color', 'font', 'text_align', 'front_message', 'back_message')
+                'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
 
 class UserCreateSerializer(serializers.ModelSerializer):
     friends = serializers.StringRelatedField(many=True, read_only=True)

@@ -64,7 +64,7 @@ class SocialCard(models.Model):
     title = models.CharField(max_length=50)
     front_message = models.TextField(max_length=250)
     back_message = models.TextField(max_length=250)
-    card_color = models.TextField(max_length=200)
+    card_color = models.TextField(max_length=200, null = True)
     font = models.CharField(max_length=12, choices=FONT_CHOICES, null=True, blank=True)
     text_align = models.CharField(max_length=50,choices=TEXT_ALIGNMENT_CHOICES,null=True, blank=True)
     border_color = models.CharField(max_length=8, choices=BORDER_COLOR, default='ORANGE')
@@ -77,8 +77,8 @@ class SocialCard(models.Model):
 
 
 class Comments(models.Model):
-    card = models.ForeignKey(SocialCard, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    card = models.ForeignKey(SocialCard, on_delete=models.CASCADE, related_name = 'SocialCard')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name = 'CustomUser')
     comment = models.TextField(max_length=120)
 
     def __str__(self):

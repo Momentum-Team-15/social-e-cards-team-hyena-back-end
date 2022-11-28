@@ -19,6 +19,7 @@ django-rest-auth = "*"
 pillow = "*"
 boto3 = "*"
 django-storages = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 flake8 = "*"
