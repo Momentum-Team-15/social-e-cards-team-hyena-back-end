@@ -10,7 +10,7 @@ from rest_framework.reverse import reverse
 from rest_framework import parsers
 from rest_framework.pagination import PageNumberPagination
 from .models import SocialCard, CustomUser, Comments
-from .serializers import SocialCardSerializer, SocialCardListSerializer, UserSerializer, ModSocialCardSerializer
+from .serializers import SocialCardSerializer, SocialCardListSerializer, UserSerializer, ModSocialCardSerializer, CommentsSerializer
 from permissions import IsOwnerOrReadOnly
 from rest_framework import filters
 
