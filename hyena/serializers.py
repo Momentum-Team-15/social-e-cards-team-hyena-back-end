@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, SocialCard, Favorite
+from .models import CustomUser, SocialCard, Comments
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -48,8 +48,9 @@ class ModSocialCardSerializer(serializers.ModelSerializer):
         model = SocialCard
         fields = ('id', 'owner')
 
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
 
-class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Favorite
-        fields = ('id', 'card','user','created_at')
+        model = Comments
+        fields = ('id', 'card','comment','user')
