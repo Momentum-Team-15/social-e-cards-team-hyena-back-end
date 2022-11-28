@@ -48,7 +48,7 @@ class ModSocialCardSerializer(serializers.ModelSerializer):
         model = SocialCard
         fields = ('id', 'owner')
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentsSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
