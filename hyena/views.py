@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.reverse import reverse
 from rest_framework import parsers
 from rest_framework.pagination import PageNumberPagination
-from .models import SocialCard, CustomUser, Favorite
+from .models import SocialCard, CustomUser, Comments
 from .serializers import SocialCardSerializer, SocialCardListSerializer, UserSerializer, ModSocialCardSerializer, FavoriteSerializer
 from permissions import IsOwnerOrReadOnly
 from rest_framework import filters
@@ -71,19 +71,6 @@ class CardDetail(RetrieveUpdateDestroyAPIView):
     queryset = SocialCard.objects.all()
     serializer_class = SocialCardListSerializer
     permission_classes = [IsOwnerOrReadOnly]
-
-class FavoriteCreateView(ListCreateAPIView):
-    queryset = Favorite.objects.all()
-    serializer_class = FavoriteSerializer
-    permission_classes = [IsAuthenticated]
-
-    #filter favorites by the logged in user
-    def get_queryset(self):
-        return self.request.user.favorites.all()
-
-    #associate the user who is creating this favorite
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
 class CommentsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()

@@ -75,7 +75,10 @@ class SocialCard(models.Model):
     def __str__(self):
         return f'{self.title}'
 
-class Favorite(models.Model):
-    card = models.ForeignKey(SocialCard, on_delete=models.CASCADE, null=True, blank=True, related_name='favorites')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='favorite')
-    created_at = models.DateTimeField(auto_now_add=True)
+class Comments(models.model):
+    card = models.ForeignKey(SocialCard, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=200)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="comments")
+
+    def __str__(self):
+        return self.comment
