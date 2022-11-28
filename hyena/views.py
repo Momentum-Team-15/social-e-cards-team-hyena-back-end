@@ -7,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
+from rest_framework import parsers
 from rest_framework.pagination import PageNumberPagination
 from .models import SocialCard, CustomUser, Comments
 from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, UserCreateSerializer
@@ -72,3 +73,11 @@ class CommentsList(ListCreateAPIView):
 class CommentsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
+
+class AvatarView(generics.UpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    parser_classes = [parsers.FileUploadParser]
+
+    def get_object(self):
+        return self.request.user
