@@ -8,19 +8,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hyena', '0006_alter_socialcard_owner'),
+        ('hyena', '0006_alter_comments_card_alter_comments_user_and_more'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='socialcard',
             name='border_choices',
-            field=models.CharField(blank=True, choices=[('SOLID', 'Solid'), ('DASHED', 'Dashed'), ('DOTTED', 'Dotted'), ('DOUBLE', 'Double'), ('HAIR', 'Hair'), ('MEDIUM', 'Medium'), ('DASHDOT', 'Dashdot')], max_length=12, null=True),
+            field=models.CharField(blank=True, choices=[('SOLID', 'Solid'), ('DASHED', 'Dashed'), ('DOTTED', 'Dotted'), (
+                'DOUBLE', 'Double'), ('HAIR', 'Hair'), ('MEDIUM', 'Medium'), ('DASHDOT', 'Dashdot')], max_length=12, null=True),
         ),
         migrations.AlterField(
             model_name='socialcard',
             name='border_color',
-            field=models.CharField(choices=[('White', 'WHITE'), ('Red', 'RED'), ('Blue', 'BLUE'), ('Green', 'GREEN'), ('Yellow', 'YELLOW'), ('Pink', 'PINK'), ('Purple', 'PURPLE'), ('Orange', 'ORANGE')], default='ORANGE', max_length=8),
+            field=models.CharField(choices=[('White', 'WHITE'), ('Red', 'RED'), ('Blue', 'BLUE'), ('Green', 'GREEN'), (
+                'Yellow', 'YELLOW'), ('Pink', 'PINK'), ('Purple', 'PURPLE'), ('Orange', 'ORANGE')], default='ORANGE', max_length=8),
         ),
         migrations.AlterField(
             model_name='socialcard',
@@ -30,19 +32,24 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='socialcard',
             name='font',
-            field=models.CharField(blank=True, choices=[('American', 'AMERICAN'), ('Birckley', 'BIRCKLEY'), ('Brush', 'BRUSH'), ('Comic Sans', 'COMIC SANS'), ('Optima', 'OPTIMA'), ('Spring', 'SPRING'), ('Utopia', 'UTOPIA')], max_length=12, null=True),
+            field=models.CharField(blank=True, choices=[('American', 'AMERICAN'), ('Birckley', 'BIRCKLEY'), ('Brush', 'BRUSH'), (
+                'Comic Sans', 'COMIC SANS'), ('Optima', 'OPTIMA'), ('Spring', 'SPRING'), ('Utopia', 'UTOPIA')], max_length=12, null=True),
         ),
         migrations.AlterField(
             model_name='socialcard',
             name='text_align',
-            field=models.CharField(blank=True, choices=[('LEFT', 'LEFT'), ('CENTER', 'CENTER'), ('RIGHT', 'RIGHT')], max_length=50, null=True),
+            field=models.CharField(blank=True, choices=[(
+                'LEFT', 'LEFT'), ('CENTER', 'CENTER'), ('RIGHT', 'RIGHT')], max_length=50, null=True),
         ),
         migrations.CreateModel(
             name='Follower',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('follower', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follower', to=settings.AUTH_USER_MODEL)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follows', to=settings.AUTH_USER_MODEL)),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('follower', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='follower', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='follows', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

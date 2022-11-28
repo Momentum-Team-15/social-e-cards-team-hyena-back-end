@@ -15,7 +15,8 @@ class SocialCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialCard
         fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
-                'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
+                  'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     friends = serializers.StringRelatedField(many=True, read_only=True)
@@ -31,13 +32,13 @@ class CommentsSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'comment', 'card')
 
 
-class FollowerSerializer(serializers.ModelSerializer):
-    follower = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='username',
-    )
-
+class FollowingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follower
-        fields = ('follower',)
+        fields = ('id', 'following', 'created_date')
+
+
+class FollowersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Follower
+        fields = ('id', 'user', 'created_date')

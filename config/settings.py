@@ -45,8 +45,8 @@ if env("RENDER"):
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'registration',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
 
-    #Third-party
+    # Third-party
     'rest_framework.authtoken',
     'djoser',
     'hyena',
@@ -163,12 +163,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
         'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.IsAdminUser',
     ],
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-}  
+}
 
 CORS_ALLOW_ALL_ORIGINS = True

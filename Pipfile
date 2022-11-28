@@ -18,6 +18,7 @@ django-registration-redux = "*"
 django-rest-auth = "*"
 djangorestframework-simplejwt = "*"
 
+
 [dev-packages]
 flake8 = "*"
 autopep8 = "*"
