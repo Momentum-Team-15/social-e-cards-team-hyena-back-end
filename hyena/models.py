@@ -60,15 +60,15 @@ class SocialCard(models.Model):
         ("DASHDOT", "Dashdot"),
     )
     
-    title = models.CharField(max_length=50)
+    title = models.TextField(max_length=50)
     front_message = models.TextField(max_length=250)
     back_message = models.TextField(max_length=250)
     card_color = models.TextField(max_length=200, null = True)
-    font = models.CharField(max_length=12, choices=FONT_CHOICES, null=True, blank=True)
-    text_align = models.CharField(max_length=50,choices=TEXT_ALIGNMENT_CHOICES,null=True, blank=True)
-    border_color = models.CharField(max_length=8, choices=BORDER_COLOR, default='ORANGE')
-    border_choices = models.CharField(max_length=12, choices=BORDER_CHOICES, null =True, blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
+    font = models.TextField(max_length=200, choices=FONT_CHOICES, null=True, blank=True)
+    text_align = models.TextField(max_length=200,choices=TEXT_ALIGNMENT_CHOICES,null=True, blank=True)
+    border_color = models.TextField(max_length=200, choices=BORDER_COLOR, default='ORANGE')
+    border_choices = models.TextField(max_length=200, choices=BORDER_CHOICES, null =True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True),
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
     
     def __str__(self):
