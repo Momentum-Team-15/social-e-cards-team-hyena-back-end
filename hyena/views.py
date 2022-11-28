@@ -43,7 +43,7 @@ class MyCardList(ListCreateAPIView):
 
     def get_queryset(self):
         queryset = self.request.user.SocialCards.all()
-        return queryset.order_by('-created_at')
+        return queryset.order_by('created_at')
 
 class UserView(ListCreateAPIView):
     queryset = CustomUser.objects.all()
