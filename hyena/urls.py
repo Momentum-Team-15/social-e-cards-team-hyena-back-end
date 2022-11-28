@@ -9,8 +9,8 @@ urlpatterns = [
     path('users/', views.UserView.as_view(), name='user_profile'),
     path('users/<int:pk>', views.UserDetail.as_view(), name='user_detail'),
     path('users/search/', views.UserSearchList.as_view(), name='search_user'),
-    path('favorites/', views.FavoriteCreateView.as_view(), name='favorite-list'),
-    path('favorites/<int:pk>/', views.FavoriteDetailView.as_view(), name='favorite-detail'),
+    path('auth/users/me/avatar/', views.AvatarView.as_view(), name='user_avatar')
 ]
+
 
 
