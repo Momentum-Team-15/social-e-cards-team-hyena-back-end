@@ -35,7 +35,7 @@ class SocialCardListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialCard
         fields = ('id', 'owner', 'owner_pk', 'title', 'border_choices', 'border_color',
-                'card_color', 'font', 'text_align', 'front_message', 'back_message')
+                'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
     
     def get_owner_pk(self, obj):
         return obj.owner.id
