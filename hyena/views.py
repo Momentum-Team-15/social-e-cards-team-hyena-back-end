@@ -23,7 +23,7 @@ def api_root(request, format=None):
     })
 
 class AllCardList(ListCreateAPIView):
-    queryset = SocialCard.objects.all().order_by('created_date')
+    queryset = SocialCard.objects.all()
     serializer_class = SocialCardListSerializer
     permission_classes = []
     filter_backends = [filters.OrderingFilter]
