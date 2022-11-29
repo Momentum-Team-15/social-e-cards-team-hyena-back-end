@@ -226,19 +226,17 @@ GET ecards/<int:pk>
 
 ```json
 {
-  "id": 7,
-  "title": "example",
-  "user": 1,
-  "border_style": "SOLID",
-  "border_color": "BLACK",
-  "font_family": "UBUNTO",
-  "font_color": "BLACK",
-  "text_alignment": "LEFT",
-  "outer_msg": "blabla",
-  "inner_msg": "yes sir",
-  "created_at": "2022-11-17T18:13:32.950733Z",
-  "updated_at": "2022-11-17T18:13:32.950747Z",
-  "published": false
+  "id": 3,
+  "owner": "swordfish23",
+  "title": "This field is required.",
+  "border_choices": null,
+  "border_color": "ORANGE",
+  "card_color": "Yellow",
+  "font": null,
+  "text_align": null,
+  "front_message": "This field is required.",
+  "back_message": "This field is required.",
+  "created_date": "2022-11-22T17:49:35.191706Z"
 }
 ```
 

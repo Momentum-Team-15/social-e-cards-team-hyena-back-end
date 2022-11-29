@@ -1,15 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.postgres.search import SearchVector
-from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
+from rest_framework.permissions import IsAuthenticated, BasePermission, IsAuthenticatedOrReadOnly, SAFE_METHODS
 from rest_framework.response import Response
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, RetrieveDestroyAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView, UpdateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.reverse import reverse
+from rest_framework import parsers
 from rest_framework.pagination import PageNumberPagination
-from .models import SocialCard, CustomUser, Comments, Follower
-from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, UserCreateSerializer, FollowingSerializer
+from .models import SocialCard, CustomUser, Comments
+from .serializers import SocialCardSerializer, SocialCardListSerializer, UserSerializer, ModSocialCardSerializer, CommentsSerializer
+from permissions import IsOwnerOrReadOnly
+from rest_framework import filters
 
 # Create your views here.
 
@@ -62,11 +65,8 @@ class CardList(ListCreateAPIView):
 
 class CardDetail(RetrieveUpdateDestroyAPIView):
     queryset = SocialCard.objects.all()
-    serializer_class = SocialCardSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        return SocialCard.objects.all()
+    serializer_class = SocialCardListSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class CommentsList(ListCreateAPIView):
@@ -82,18 +82,10 @@ class CommentsDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = CommentsSerializer
 
 
-class FollowerDetail(ListCreateAPIView):
-    queryset = Follower.objects.all()
-    serializer_class = FollowingSerializer
+class AvatarView(UpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    parser_classes = [parsers.FileUploadParser]
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def get_queryset(self):
-        queryset = Follower.objects.filter(user=self.request.user.id)
-        return queryset
-
-
-class FollowerEdit(RetrieveUpdateDestroyAPIView):
-    queryset = Follower.objects.all()
-    serializer_class = FollowingSerializer
+    def get_object(self):
+        return self.request.user
