@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import environ
 import os
+from corsheaders.defaults import default_headers
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -200,3 +201,6 @@ DEFAULT_FILE_STORAGE = {'hyena.storage_backends.MediaStorage'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'content-disposition',
+]
