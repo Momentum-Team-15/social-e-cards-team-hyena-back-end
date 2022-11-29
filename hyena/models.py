@@ -96,7 +96,8 @@ class Follower(models.Model):
         CustomUser, on_delete=models.CASCADE, related_name="LoggedInUser")
     being_followed = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="OtherUser")
-    created = models.DateTimeField(auto_now_add=True, db_index=True)
+    created = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, db_index=True)
 
     class Meta:
         constraints = [
@@ -104,6 +105,12 @@ class Follower(models.Model):
                 fields=['user', 'being_followed'], name='unique_followers')
         ]
         ordering = ["-created"]
+
+    # def save(self, *args, **kwargs):
+    #     if self.user.is_follow.id != self.being_followed.pk:
+    #         return super().save(*args, **kwargs)
+    #     else:
+    #         return
 
     def __str__(self):
         return f'{self.user} is now following {self.being_followed}'

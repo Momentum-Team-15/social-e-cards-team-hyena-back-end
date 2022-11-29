@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework.pagination import PageNumberPagination
 from .models import SocialCard, CustomUser, Comments, Follower
-from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, UserCreateSerializer, FollowersSerializer, FollowingSerializer
+from .serializers import SocialCardSerializer, CommentsSerializer, UserSerializer, UserCreateSerializer, FollowingSerializer
 
 # Create your views here.
 
@@ -84,16 +84,16 @@ class CommentsDetail(RetrieveUpdateDestroyAPIView):
 
 class FollowerDetail(ListCreateAPIView):
     queryset = Follower.objects.all()
-    serializer_class = FollowersSerializer
-
-    def get_queryset(self):
-        queryset = Follower.objects.filter(user=self.request.user)
-        return queryset
+    serializer_class = FollowingSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    def get_queryset(self):
+        queryset = Follower.objects.filter(user=self.request.user.id)
+        return queryset
+
 
 class FollowerEdit(RetrieveUpdateDestroyAPIView):
     queryset = Follower.objects.all()
-    serializer_class = FollowersSerializer
+    serializer_class = FollowingSerializer

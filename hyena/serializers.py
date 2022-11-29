@@ -5,7 +5,20 @@ from .models import CustomUser, SocialCard, Comments, Follower
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'first_name', 'last_name',)
+        fields = (
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+        )
+
+
+def get_following(self, obj):
+    return FollowingSerializer(obj.following.all(), many=True).data
+
+
+def get_followers(self, obj):
+    return FollowersSerializer(obj.followers.all(), many=True).data
 
 
 class SocialCardSerializer(serializers.ModelSerializer):
@@ -29,16 +42,16 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ('id', 'user', 'comment', 'card')
+        fields = ('user', 'comment', 'card')
 
 
 class FollowingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follower
-        fields = ('id', 'following', 'created_date')
+        fields = ('user', 'being_followed', 'created')
 
 
-class FollowersSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Follower
-        fields = ('id', 'user', 'created_date')
+# class FollowersSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Follower
+#         fields = ('user', 'created')
