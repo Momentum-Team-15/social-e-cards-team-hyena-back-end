@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, SocialCard, Comments, Follower
+from .models import CustomUser, SocialCard, Comments
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,20 +40,11 @@ class SocialCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SocialCard
-        fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
-                  'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
-
-
-class UserCreateSerializer(serializers.ModelSerializer):
-    friends = serializers.StringRelatedField(many=True, read_only=True)
-    followers = serializers.StringRelatedField(many=True, read_only=True)
-
-    fields = ('__all__',)
+        fields = ('__all__',)
 
 
 class SocialCardListSerializer(serializers.ModelSerializer):
-    owner = serializers.SlugRelatedField(
-        slug_field='username', read_only=True)
+    owner = serializers.SlugRelatedField(slug_field='username', read_only=True)
     owner_pk = serializers.SerializerMethodField()
 
     class Meta:
@@ -70,7 +61,6 @@ class ModSocialCardSerializer(serializers.ModelSerializer):
         slug_field='username', read_only=True)
 
     class Meta:
-
         model = SocialCard
         fields = ('id', 'owner')
 

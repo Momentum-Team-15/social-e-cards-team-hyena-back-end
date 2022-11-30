@@ -1,17 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
 # Create your models here.
 
+
 class CustomUser(AbstractUser):
-    # name = models.CharField(max_length=50, null=True, blank=True)
-    favorites = models.ManyToManyField(
-        'SocialCard', related_name='favorite_ecards', blank=True)
-
-    avatar = models.ImageField(
-        upload_to="user_avatars", blank=True, null=True)
-
     def __str__(self):
         return f'{self.username}'
 
@@ -63,20 +56,19 @@ class SocialCard(models.Model):
         ("DASHDOT", "Dashdot"),
     )
 
-    title = models.CharField(max_length=50)
+    title = models.TextField(max_length=50)
     front_message = models.TextField(max_length=250)
     back_message = models.TextField(max_length=250)
     card_color = models.TextField(max_length=200, null=True)
-    font = models.CharField(
-        max_length=12)
-    text_align = models.CharField(
-        max_length=50)
-    border_color = models.CharField(
-        max_length=8)
-    border_choices = models.CharField(
-        max_length=12)
-    created_date = models.DateTimeField(
-        auto_now_add=True, blank=True, null=True, db_index=True)
+    font = models.TextField(
+        max_length=200, choices=FONT_CHOICES, null=True, blank=True)
+    text_align = models.TextField(
+        max_length=200, choices=TEXT_ALIGNMENT_CHOICES, null=True, blank=True)
+    border_color = models.TextField(
+        max_length=200, choices=BORDER_COLOR, default='ORANGE')
+    border_choices = models.TextField(
+        max_length=200, choices=BORDER_CHOICES, null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True),
     owner = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
 

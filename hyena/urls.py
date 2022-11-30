@@ -1,14 +1,10 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
     path('', views.api_root),
-    path('ecard/all/', views.CardList.as_view(), name='all-ecards'),
-    path('ecard/mine/', views.CardList.as_view(), name='my-ecards'),
+    path('ecard/', views.CardListCreate.as_view(), name='ecard'),
     path('ecard/<int:pk>/', views.CardDetail.as_view(), name='ecard_detail'),
-    path('comments/', views.CommentsList.as_view(), name='comments-list'),
-    path('comments/<int:pk>/', views.CommentsDetail.as_view(),
-         name='comments-detail'),
     path('ecard/', views.CardDetail.as_view(), name='ecard'),
     path('users/', views.UserView.as_view(), name='user_profile'),
     path('users/<int:pk>', views.UserDetail.as_view(), name='user_detail'),
