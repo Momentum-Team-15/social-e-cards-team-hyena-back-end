@@ -86,3 +86,12 @@ class FollowerDetail(ListCreateAPIView):
 class FollowerEdit(RetrieveUpdateDestroyAPIView):
     queryset = Follower.objects.all()
     serializer_class = FollowingSerializer
+
+
+class UserAvatarView(UpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    parser_classes = [parsers.FileUploadParser]
+
+    def get_object(self):
+        return self.request.user

@@ -13,4 +13,5 @@ urlpatterns = [
     path('follower/<int:pk>', views.FollowerEdit.as_view(), name='follower_detail'),
     path('comment/', views.CommentListCreate.as_view(), name='comment'),
     path('comment/<int:pk>/', views.CommentsDetail.as_view(), name='comment_detail'),
+    path('auth/users/me/avatar/', views.UserAvatarView.as_view(), name="user_avatar"),
 ]
