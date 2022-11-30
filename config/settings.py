@@ -47,8 +47,8 @@ if env("RENDER"):
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'registration',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
 
-    #Third-party
+    # Third-party
     'rest_framework.authtoken',
     'djoser',
     'hyena',
@@ -144,7 +144,6 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
-
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
@@ -169,7 +168,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
         'rest_framework.permissions.IsAuthenticated'
     ],
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
 
@@ -185,4 +184,3 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'content-disposition',
 ]
-
