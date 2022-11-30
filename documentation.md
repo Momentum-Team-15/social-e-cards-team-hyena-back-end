@@ -1,25 +1,20 @@
-
 ### API ENDPOINTS
-| HTTP Verbs | Endpoints | Action |
-| --- | --- | --- |
-| GET | /api-auth/login | To login to an existing account |
-| GET | /api/user/logout | Logout from account |
-| GET | /auth/users | Register new user |
-| GET | /ecard/ | Gets list of cards from users you follow |
-| POST | /ecard/ | Create new ecard/post |
-| GET | /ecard/<int:pk> | Get a specific ecard's details |
-| PUT | /ecard/<int:pk> | Updates the card with specified id |
-| DELETE | /ecard/<int:pk> | Deletes card with specific id |
-| POST | /comments/ | Make a comment |
-| GET | /comments/<int:pk> | Specific comment |
-| PUT | /comments/<int:pk> | Updates the comment with specified id |
-| DELETE | /comments/<int:pk> | Deletes comment with specific id |
-| POST | /friends/ | add user as a friend |
 
-
-
-
-
+| HTTP Verbs | Endpoints          | Action                                   |
+| ---------- | ------------------ | ---------------------------------------- |
+| GET        | /api-auth/login    | To login to an existing account          |
+| GET        | /api/user/logout   | Logout from account                      |
+| GET        | /auth/users        | Register new user                        |
+| GET        | /ecard/            | Gets list of cards from users you follow |
+| POST       | /ecard/            | Create new ecard/post                    |
+| GET        | /ecard/<int:pk>    | Get a specific ecard's details           |
+| PUT        | /ecard/<int:pk>    | Updates the card with specified id       |
+| DELETE     | /ecard/<int:pk>    | Deletes card with specific id            |
+| POST       | /comments/         | Make a comment                           |
+| GET        | /comments/<int:pk> | Specific comment                         |
+| PUT        | /comments/<int:pk> | Updates the comment with specified id    |
+| DELETE     | /comments/<int:pk> | Deletes comment with specific id         |
+| POST       | /friends/          | add user as a friend                     |
 
 # E-Card API
 
@@ -32,7 +27,6 @@ This application is an API built with Django REST Framework (DRF) that lets user
 Requests to endpoints requiring authentication should set the `Authorization` header to `Token <token>`, where `<token>` is the token received in the login response.
 
 POST requests with a body should set the `Content-Type` header to `application/json`.
-
 
 ## Register a new user
 
@@ -83,47 +77,50 @@ POST auth/token/login
 }
 ```
 
-
-
 ## List all Cards for particular user
+
 Requires authentication.
+
 ### request
+
 ```txt
 GET ecards/user/
 ```
+
 ### response
+
 ```json
 [
-    {
-        "id": 2,
-        "title": "Test",
-        "user": 1,
-        "border_style": "DOTTED",
-        "border_color": "BLUE",
-        "font_family": "RALEWAY",
-        "font_color": "BLACK",
-        "text_alignment": "CENTER",
-        "outer_msg": "asdasd",
-        "inner_msg": "adasdasd",
-        "created_at": "2022-11-17T12:32:33.657292Z",
-        "updated_at": "2022-11-17T12:32:33.657327Z",
-        "published": false
-    },
-    {
-        "id": 3,
-        "title": "Test2",
-        "user": 1,
-        "border_style": "DOTTED",
-        "border_color": "BLACK",
-        "font_family": "MERRIWEATHER",
-        "font_color": "BLACK",
-        "text_alignment": "RIGHT",
-        "outer_msg": "asdasdsad",
-        "inner_msg": "sasdadsasadsa",
-        "created_at": "2022-11-17T12:32:47.668606Z",
-        "updated_at": "2022-11-17T12:32:47.668642Z",
-        "published": true
-    }
+  {
+    "id": 2,
+    "title": "Test",
+    "user": 1,
+    "border_style": "DOTTED",
+    "border_color": "BLUE",
+    "font_family": "RALEWAY",
+    "font_color": "BLACK",
+    "text_alignment": "CENTER",
+    "outer_msg": "asdasd",
+    "inner_msg": "adasdasd",
+    "created_at": "2022-11-17T12:32:33.657292Z",
+    "updated_at": "2022-11-17T12:32:33.657327Z",
+    "published": false
+  },
+  {
+    "id": 3,
+    "title": "Test2",
+    "user": 1,
+    "border_style": "DOTTED",
+    "border_color": "BLACK",
+    "font_family": "MERRIWEATHER",
+    "font_color": "BLACK",
+    "text_alignment": "RIGHT",
+    "outer_msg": "asdasdsad",
+    "inner_msg": "sasdadsasadsa",
+    "created_at": "2022-11-17T12:32:47.668606Z",
+    "updated_at": "2022-11-17T12:32:47.668642Z",
+    "published": true
+  }
 ]
 ```
 
@@ -141,38 +138,39 @@ GET ecards/
 
 ```json
 [
-	{
-		"id": 2,
-		"title": "Test",
-		"user": 1,
-		"border_style": "DOTTED",
-		"border_color": "BLUE",
-		"font_family": "RALEWAY",
-		"font_color": "BLACK",
-		"text_alignment": "CENTER",
-		"outer_msg": "asdasd",
-		"inner_msg": "adasdasd",
-		"created_at": "2022-11-17T12:32:33.657292Z",
-		"updated_at": "2022-11-17T12:32:33.657327Z",
-		"published": false
-	},
-	{
-		"id": 3,
-		"title": "Test2",
-		"user": 4,
-		"border_style": "DOTTED",
-		"border_color": "BLACK",
-		"font_family": "MERRIWEATHER",
-		"font_color": "BLACK",
-		"text_alignment": "RIGHT",
-		"outer_msg": "asdasdsad",
-		"inner_msg": "sasdadsasadsa",
-		"created_at": "2022-11-17T12:32:47.668606Z",
-		"updated_at": "2022-11-17T12:32:47.668642Z",
-		"published": true
-    }
+  {
+    "id": 2,
+    "title": "Test",
+    "user": 1,
+    "border_style": "DOTTED",
+    "border_color": "BLUE",
+    "font_family": "RALEWAY",
+    "font_color": "BLACK",
+    "text_alignment": "CENTER",
+    "outer_msg": "asdasd",
+    "inner_msg": "adasdasd",
+    "created_at": "2022-11-17T12:32:33.657292Z",
+    "updated_at": "2022-11-17T12:32:33.657327Z",
+    "published": false
+  },
+  {
+    "id": 3,
+    "title": "Test2",
+    "user": 4,
+    "border_style": "DOTTED",
+    "border_color": "BLACK",
+    "font_family": "MERRIWEATHER",
+    "font_color": "BLACK",
+    "text_alignment": "RIGHT",
+    "outer_msg": "asdasdsad",
+    "inner_msg": "sasdadsasadsa",
+    "created_at": "2022-11-17T12:32:47.668606Z",
+    "updated_at": "2022-11-17T12:32:47.668642Z",
+    "published": true
+  }
 ]
 ```
+
 ## Add a Card
 
 Requires authentication.
@@ -182,42 +180,41 @@ Requires authentication.
 ```txt
 POST ecards/
 ```
+
 ```json
 {
-	"title": "example",
-	"border_style": "SOLID",
-	"font_family": "UBUNTO",
-	"text_alignment": "LEFT",
-	"outer_msg": "blabla",
-	"inner_msg": "yes sir"
+  "title": "example",
+  "border_style": "SOLID",
+  "font_family": "UBUNTO",
+  "text_alignment": "LEFT",
+  "outer_msg": "blabla",
+  "inner_msg": "yes sir"
 }
 ```
 
 ### response
 
 ```json
-
 {
-	"id": 7,
-	"title": "example",
-	"user": 1,
-	"border_style": "SOLID",
-	"border_color": "BLACK",
-	"font_family": "UBUNTO",
-	"font_color": "BLACK",
-	"text_alignment": "LEFT",
-	"outer_msg": "blabla",
-	"inner_msg": "yes sir",
-	"created_at": "2022-11-17T18:13:32.950733Z",
-	"updated_at": "2022-11-17T18:13:32.950747Z",
-	"published": false
+  "id": 7,
+  "title": "example",
+  "user": 1,
+  "border_style": "SOLID",
+  "border_color": "BLACK",
+  "font_family": "UBUNTO",
+  "font_color": "BLACK",
+  "text_alignment": "LEFT",
+  "outer_msg": "blabla",
+  "inner_msg": "yes sir",
+  "created_at": "2022-11-17T18:13:32.950733Z",
+  "updated_at": "2022-11-17T18:13:32.950747Z",
+  "published": false
 }
-
 ```
 
 ## Look at cards details
 
-Requires authentication. 
+Requires authentication.
 
 ### request
 
@@ -226,23 +223,22 @@ GET ecards/<int:pk>
 ```
 
 ### response
+
 ```json
 {
-	"id": 3,
-	"owner": "swordfish23",
-	"title": "This field is required.",
-	"border_choices": null,
-	"border_color": "ORANGE",
-	"card_color": "Yellow",
-	"font": null,
-	"text_align": null,
-	"front_message": "This field is required.",
-	"back_message": "This field is required.",
-	"created_date": "2022-11-22T17:49:35.191706Z"
+  "id": 3,
+  "owner": "swordfish23",
+  "title": "This field is required.",
+  "border_choices": null,
+  "border_color": "ORANGE",
+  "card_color": "Yellow",
+  "font": null,
+  "text_align": null,
+  "front_message": "This field is required.",
+  "back_message": "This field is required.",
+  "created_date": "2022-11-22T17:49:35.191706Z"
 }
 ```
-
-
 
 ## To look at info in a user profile
 
@@ -257,15 +253,13 @@ GET profile/<int:id>
 ### response
 
 ```json
-
-	{
-		"id": 1,
-		"name": null,
-		"bio": "The greatest example ever",
-		"username": "admin",
-		"email": ""
-	}
-
+{
+  "id": 1,
+  "name": null,
+  "bio": "The greatest example ever",
+  "username": "admin",
+  "email": ""
+}
 ```
 
 ## To update a user profile
@@ -277,13 +271,14 @@ Requires authentication. NOTE THAT username is required in order to update other
 ```txt
 PUT profile/<int:id>
 ```
+
 ```json
 {
-	"id": 1,
-	"name": null,
-	"bio": "The greatest test",
-	"username": "admin",
-	"email": ""
+  "id": 1,
+  "name": null,
+  "bio": "The greatest test",
+  "username": "admin",
+  "email": ""
 }
 ```
 
@@ -291,13 +286,13 @@ PUT profile/<int:id>
 
 ```json
 [
-	{
-		"id": 1,
-		"name": null,
-		"bio": "The greatest test",
-		"username": "admin",
-		"email": ""
-	}
+  {
+    "id": 1,
+    "name": null,
+    "bio": "The greatest test",
+    "username": "admin",
+    "email": ""
+  }
 ]
 ```
 
@@ -423,9 +418,10 @@ GET <BASE_URL>/friends/6
 Username and password are required.
 
 ```
+
 GET <BASE_URL>/favorites
 
-```
+````
 
 ### response
 
@@ -447,7 +443,7 @@ GET <BASE_URL>/favorites
 	}
 ]
 
-```
+````
 
 ## Favorite detail page
 
@@ -480,4 +476,46 @@ GET <BASE_URL>/favorites/2
 | GET | /comments/<int:pk> | Specific comment |
 | GET | /auth/users | Register new user |
 
+### New Follower other users
 
+### request
+
+Authenticaiton is required
+
+,,,
+POST <BASE_URL>/follower/
+,,,
+
+### Response
+
+,,,json
+201 created
+
+{
+"user": 1,
+"being_followed": 3,
+"created": "2022-11-29T21:14:56.111414Z"
+}
+
+### Get a list of followers
+
+### request
+
+Authenticaiton is required
+
+,,,
+POST <BASE_URL>/follower/
+,,,
+
+### Response
+
+,,,json
+200 OK
+
+[
+{
+"user": 1,
+"being_followed": 3,
+"created": "2022-11-29T21:14:56.111414Z"
+}
+]

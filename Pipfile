@@ -21,6 +21,7 @@ boto3 = "*"
 django-storages = "*"
 djangorestframework-simplejwt = "*"
 
+
 [dev-packages]
 flake8 = "*"
 autopep8 = "*"
