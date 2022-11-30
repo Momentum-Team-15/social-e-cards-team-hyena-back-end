@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import environ
 import os
+from corsheaders.defaults import default_headers
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -166,13 +167,22 @@ AUTH_USER_MODEL = 'hyena.CustomUser'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated'
     ],
     
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ]
+
+    ],
 }
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'hyena/static'),
+]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'content-disposition',
+]
+
