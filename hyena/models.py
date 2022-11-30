@@ -10,20 +10,18 @@ class CustomUser(AbstractUser):
 
 
 class SocialCard(models.Model):
-    title = models.TextField(max_length=50)
+    title = models.CharField(max_length=50)
     front_message = models.TextField(max_length=250)
     back_message = models.TextField(max_length=250)
-    card_color = models.TextField(max_length=200, null=True)
-    font = models.TextField(
-        max_length=200, null=True, blank=True)
-    text_align = models.TextField(
-        max_length=200, null=True, blank=True)
-    border_color = models.TextField(
-        max_length=200, null=True, blank=True)
-    border_choices = models.TextField(
-        max_length=200, null=True, blank=True)
-    created_date = models.DateTimeField(
-        auto_now_add=True, blank=True, null=True, db_index=True),
+    card_color = models.CharField(max_length=50, null=True)
+    font = models.CharField(
+        max_length=50, null=True, blank=True)
+    text_align = models.CharField(
+        max_length=50, null=True, blank=True)
+    border_color = models.CharField(
+        max_length=50, null=True, blank=True)
+    border_choices = models.CharField(
+        max_length=50, null=True, blank=True)
     owner = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
 
