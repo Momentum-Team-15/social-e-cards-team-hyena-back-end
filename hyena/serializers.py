@@ -5,7 +5,18 @@ from .models import CustomUser, SocialCard, Comments, Follower
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'first_name', 'last_name', 'avatar')
+        fields = (
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+        )
+
+    def get_following(self, obj):
+        return FollowingSerializer(obj.following.all(), many=True).data
+
+    def get_followers(self, obj):
+        return FollowersSerializer(obj.followers.all(), many=True).data
 
     def update(self, instance, validated_data):
         if "file" in self.initial_data:
@@ -27,45 +38,52 @@ class SocialCardSerializer(serializers.ModelSerializer):
     owner = serializers.SlugRelatedField(
         slug_field="username", read_only=True)
 
-        slug_field = 'username', read_only = True)
-
     class Meta:
-        model=SocialCard
-        fields=('id', 'owner', 'title', 'border_choices', 'border_color',
+        model = SocialCard
+        fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
                   'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    friends=serializers.StringRelatedField(many = True, read_only = True)
-    followers=serializers.StringRelatedField(many = True, read_only = True)
+    friends = serializers.StringRelatedField(many=True, read_only=True)
+    followers = serializers.StringRelatedField(many=True, read_only=True)
 
-        fields=('__all__',)
+    fields = ('__all__',)
+
 
 class SocialCardListSerializer(serializers.ModelSerializer):
-    owner=serializers.SlugRelatedField(
-        slug_field = 'username', read_only = True)
-    owner_pk=serializers.SerializerMethodField()
+    owner = serializers.SlugRelatedField(
+        slug_field='username', read_only=True)
+    owner_pk = serializers.SerializerMethodField()
 
     class Meta:
-        model=SocialCard
-        fields=('id', 'owner', 'owner_pk', 'title', 'border_choices', 'border_color',
-                'card_color', 'font', 'text_align', 'created_date', 'front_message', 'back_message')
+        model = SocialCard
+        fields = ('id', 'owner', 'owner_pk', 'title', 'border_choices', 'border_color',
+                  'card_color', 'font', 'text_align', 'created_date', 'front_message', 'back_message')
 
     def get_owner_pk(self, obj):
         return obj.owner.id
 
+
 class ModSocialCardSerializer(serializers.ModelSerializer):
-    owner=serializers.SlugRelatedField(
-        slug_field = 'username', read_only = True)
+    owner = serializers.SlugRelatedField(
+        slug_field='username', read_only=True)
 
     class Meta:
 
-        model=SocialCard
-        fields=('id', 'owner')
+        model = SocialCard
+        fields = ('id', 'owner')
+
 
 class CommentsSerializer(serializers.ModelSerializer):
-    user=serializers.ReadOnlyField(source = 'user.username')
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
-        model=Comments
-        fields=('id', 'card', 'comment', 'user')
+        model = Comments
+        fields = ('id', 'card', 'comment', 'user')
+
+
+class FollowingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Follower
+        fields = ('user', 'being_followed', 'created')

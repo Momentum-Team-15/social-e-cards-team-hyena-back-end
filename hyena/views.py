@@ -9,8 +9,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.reverse import reverse
 from rest_framework import parsers
 from rest_framework.pagination import PageNumberPagination
-from .models import SocialCard, CustomUser, Comments
-from .serializers import SocialCardSerializer, SocialCardListSerializer, UserSerializer, ModSocialCardSerializer, CommentsSerializer
+from .models import SocialCard, CustomUser, Comments, Follower
+from .serializers import SocialCardSerializer, SocialCardListSerializer, UserSerializer, ModSocialCardSerializer, CommentsSerializer, FollowingSerializer
 from permissions import IsOwnerOrReadOnly
 from rest_framework import filters
 
@@ -89,3 +89,25 @@ class AvatarView(UpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class FollowerDetail(ListCreateAPIView):
+    queryset = Follower.objects.all()
+    serializer_class = FollowingSerializer
+
+    def get_queryset(self):
+        queryset = Follower.objects.filter(user=self.request.user)
+        return queryset
+    serializer_class = FollowingSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        queryset = Follower.objects.filter(user=self.request.user.id)
+        return queryset
+
+
+class FollowerEdit(RetrieveUpdateDestroyAPIView):
+    queryset = Follower.objects.all()
+    serializer_class = FollowingSerializer

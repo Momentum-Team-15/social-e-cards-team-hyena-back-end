@@ -9,8 +9,8 @@ class CustomUser(AbstractUser):
     favorites = models.ManyToManyField(
         'SocialCard', related_name='favorite_ecards', blank=True)
 
-    def __str__(self):
-    avatar = models.ImageField(upload_to="user_avatars", blank=True, null=True)
+    avatar = models.ImageField(
+        upload_to="user_avatars", blank=True, null=True)
 
     def __str__(self):
         return f'{self.username}'
@@ -68,14 +68,15 @@ class SocialCard(models.Model):
     back_message = models.TextField(max_length=250)
     card_color = models.TextField(max_length=200, null=True)
     font = models.CharField(
-        max_length=12, choices=FONT_CHOICES, null=True, blank=True)
+        max_length=12)
     text_align = models.CharField(
-        max_length=50, choices=TEXT_ALIGNMENT_CHOICES, null=True, blank=True)
+        max_length=50)
     border_color = models.CharField(
-        max_length=8, choices=BORDER_COLOR, default='ORANGE')
+        max_length=8)
     border_choices = models.CharField(
-        max_length=12, choices=BORDER_CHOICES, null=True, blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
+        max_length=12)
+    created_date = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, db_index=True)
     owner = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
 
@@ -92,3 +93,29 @@ class Comments(models.Model):
 
     def __str__(self):
         return f'{self.comment}'
+
+
+class Follower(models.Model):
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="LoggedInUser")
+    being_followed = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="OtherUser")
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+    created = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, db_index=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'being_followed'], name='unique_followers')
+        ]
+        ordering = ["-created"]
+
+    # def save(self, *args, **kwargs):
+    #     if self.user.is_follow.id != self.being_followed.pk:
+    #         return super().save(*args, **kwargs)
+    #     else:
+    #         return
+
+    def __str__(self):
+        return f'{self.user} is now following {self.being_followed}'
