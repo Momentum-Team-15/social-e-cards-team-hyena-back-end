@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import CustomUser, SocialCard, Comments
-
+from datetime import datetime
+import json
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     friends = serializers.StringRelatedField(many=True, read_only=True)
     followers = serializers.StringRelatedField(many=True, read_only=True)
+    
     class Meta:
         pass
 
@@ -26,27 +28,8 @@ class SocialCardSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = SocialCard
-        fields = ('__all__',)
-
-class SocialCardListSerializer(serializers.ModelSerializer):
-    owner = serializers.SlugRelatedField(slug_field='username', read_only=True)
-    owner_pk = serializers.SerializerMethodField()
-
-    class Meta:
-        model = SocialCard
-        fields = ('id', 'owner', 'owner_pk', 'title', 'border_choices', 'border_color',
-                'card_color', 'font', 'text_align', 'created_date', 'front_message', 'back_message')
-    
-    def get_owner_pk(self, obj):
-        return obj.owner.id
-
-class ModSocialCardSerializer(serializers.ModelSerializer):
-    owner = serializers.SlugRelatedField(
-        slug_field='username', read_only=True)
-    
-    class Meta:
-        model = SocialCard
-        fields = ('id', 'owner')
+        fields = ('id', 'owner', 'title', 'border_choices', 'border_color',
+                'card_color', 'font', 'text_align', 'front_message', 'back_message', 'created_date')
 
 class CommentsSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
