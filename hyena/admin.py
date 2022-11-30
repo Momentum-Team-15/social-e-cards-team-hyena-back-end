@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin import site
-from .models import CustomUser, SocialCard, Comments
+from .models import CustomUser, SocialCard, Comments, Follower
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 admin.site.register(CustomUser, UserAdmin)
 admin.site.register(SocialCard)
 admin.site.register(Comments)
+admin.site.register(Follower)
