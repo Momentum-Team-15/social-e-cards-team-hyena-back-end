@@ -61,17 +61,16 @@ class CardDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
 
 
+class CommentListCreate(ListCreateAPIView):
+    queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer
+
+
 class CommentsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
 
 
-class AvatarView(UpdateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
-    parser_classes = [parsers.FileUploadParser]
-
-
 class FollowerDetail(ListCreateAPIView):
     queryset = Follower.objects.all()
     serializer_class = FollowingSerializer
@@ -79,36 +78,9 @@ class FollowerDetail(ListCreateAPIView):
     def get_queryset(self):
         queryset = Follower.objects.filter(user=self.request.user)
         return queryset
-    serializer_class = FollowingSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-    def get_queryset(self):
-        queryset = Follower.objects.filter(user=self.request.user.id)
-        return queryset
-
-
-class FollowerEdit(RetrieveUpdateDestroyAPIView):
-    queryset = Follower.objects.all()
-    serializer_class = FollowingSerializer
-
-
-class FollowerDetail(ListCreateAPIView):
-    queryset = Follower.objects.all()
-    serializer_class = FollowingSerializer
-
-    def get_queryset(self):
-        queryset = Follower.objects.filter(user=self.request.user)
-        return queryset
-    serializer_class = FollowingSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def get_queryset(self):
-        queryset = Follower.objects.filter(user=self.request.user.id)
-        return queryset
 
 
 class FollowerEdit(RetrieveUpdateDestroyAPIView):
