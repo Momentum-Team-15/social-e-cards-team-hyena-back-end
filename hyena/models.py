@@ -22,8 +22,6 @@ class SocialCard(models.Model):
         max_length=200, null=True, blank=True)
     border_choices = models.TextField(
         max_length=200, null=True, blank=True)
-    created_date = models.DateTimeField(
-        auto_now_add=True, blank=True, null=True, db_index=True),
     owner = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='SocialCard')
 
