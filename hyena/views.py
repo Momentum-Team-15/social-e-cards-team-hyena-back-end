@@ -22,31 +22,6 @@ def api_root(request, format=None):
     })
 
 
-class AllCardList(ListCreateAPIView):
-    queryset = SocialCard.objects.all()
-    serializer_class = SocialCardListSerializer
-    permission_classes = []
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['created_date', 'owner']
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
-class MyCardList(ListCreateAPIView):
-    serializer_class = SocialCardListSerializer
-    permission_classes = []
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['created_at', 'title']
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-    def get_queryset(self):
-        queryset = self.request.user.SocialCards.all()
-        return queryset.order_by('created_at')
-
-
 class UserView(ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
@@ -71,15 +46,25 @@ class UserSearchList(ListAPIView):
         return CustomUser.objects.annotate(search=SearchVector("username")).filter(search=query)
 
 
+class CardListCreate(ListCreateAPIView):
+    queryset = SocialCard.objects.all
+    serializer_class = SocialCardSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
 class CardDetail(RetrieveUpdateDestroyAPIView):
     queryset = SocialCard.objects.all()
-    serializer_class = SocialCardListSerializer
+    serializer_class = SocialCardSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
 
 class CommentsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
+
 
 class AvatarView(UpdateAPIView):
     queryset = CustomUser.objects.all()

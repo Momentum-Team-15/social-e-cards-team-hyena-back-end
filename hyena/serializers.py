@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, SocialCard, Comments
+from .models import CustomUser, SocialCard, Comments, Follower
 
 
 class UserSerializer(serializers.ModelSerializer):
