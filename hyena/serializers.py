@@ -15,6 +15,14 @@ class UserSerializer(serializers.ModelSerializer):
     def get_following(self, obj):
         return FollowingSerializer(obj.following.all(), many=True).data
 
+    def update(self, instance, validated_data):
+        if "file" in self.initial_data:
+            file = self.initial_data.get("file")
+            instance.avatar.save(file.name, file, save=True)
+            return instance
+        # this call to super is to make sure that update still works for other fields
+        return super().update(instance, validated_data)
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     friends = serializers.StringRelatedField(many=True, read_only=True)
