@@ -17,11 +17,6 @@ class Migration(migrations.Migration):
             name='favorites',
             field=models.ManyToManyField(blank=True, related_name='favorite_ecards', to='hyena.socialcard'),
         ),
-        migrations.AddField(
-            model_name='socialcard',
-            name='created_date',
-            field=models.DateTimeField(auto_now_add=True, db_index=True, null=True),
-        ),
         migrations.AlterField(
             model_name='comments',
             name='card',
