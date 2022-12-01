@@ -47,7 +47,7 @@ class UserSearchList(ListAPIView):
 
 
 class CardListCreate(ListCreateAPIView):
-    queryset = SocialCard.objects.all
+    queryset = SocialCard.objects.all()
     serializer_class = SocialCardSerializer
     permission_classes = [IsAuthenticated]
 
@@ -77,6 +77,8 @@ class CommentListCreate(ListCreateAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class CommentsDetail(RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
