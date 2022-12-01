@@ -60,6 +60,16 @@ class CardDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = SocialCardSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+class MyCards(ListCreateAPIView):
+    queryset = SocialCard.objects.all()
+    serializer_class = SocialCardSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        return SocialCard.objects.filter(owner=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class CommentListCreate(ListCreateAPIView):
     queryset = Comments.objects.all()
@@ -74,6 +84,7 @@ class CommentsDetail(RetrieveUpdateDestroyAPIView):
 class FollowerDetail(ListCreateAPIView):
     queryset = Follower.objects.all()
     serializer_class = FollowingSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = Follower.objects.filter(user=self.request.user)
@@ -86,7 +97,7 @@ class FollowerDetail(ListCreateAPIView):
 class FollowerEdit(RetrieveUpdateDestroyAPIView):
     queryset = Follower.objects.all()
     serializer_class = FollowingSerializer
-
+    permission_classes = [IsAuthenticated]
 
 class UserAvatarView(UpdateAPIView):
     queryset = CustomUser.objects.all()
