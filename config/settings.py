@@ -59,9 +59,9 @@ INSTALLED_APPS = [
 
     # Third-party
     'rest_framework.authtoken',
+    'storages',
     'djoser',
     'hyena',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -154,11 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': False,
-    'SERIALIZERS': {'user_create': 'hyena.serializers.UserSerializer'},
+    'SERIALIZERS': {
+        'current_user': 'api.serializers.UserSerializer',
+    },
 }
 
 AUTH_USER_MODEL = 'hyena.CustomUser'
