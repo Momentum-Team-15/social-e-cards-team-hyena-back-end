@@ -1,24 +1,9 @@
-### API ENDPOINTS
-
-| HTTP Verbs | Endpoints          | Action                                   |
-| ---------- | ------------------ | ---------------------------------------- |
-| GET        | /api-auth/login    | To login to an existing account          |
-| GET        | /api/user/logout   | Logout from account                      |
-| GET        | /auth/users        | Register new user                        |
-| GET        | /ecard/            | Gets list of cards from users you follow |
-| POST       | /ecard/            | Create new ecard/post                    |
-| GET        | /ecard/<int:pk>    | Get a specific ecard's details           |
-| PUT        | /ecard/<int:pk>    | Updates the card with specified id       |
-| DELETE     | /ecard/<int:pk>    | Deletes card with specific id            |
-| POST       | /comments/         | Make a comment                           |
-| GET        | /comments/<int:pk> | Specific comment                         |
-| PUT        | /comments/<int:pk> | Updates the comment with specified id    |
-| DELETE     | /comments/<int:pk> | Deletes comment with specific id         |
-| POST       | /friends/          | add user as a friend                     |
-
 # E-Card API
 
-This application is an API built with Django REST Framework (DRF) that lets users track E-Cards that they want to create, share, or favorite -- kind of like any social media. Cards are listed with important information like title, user,font, and whether it is marked as “Published”.
+This application is an API built with Django REST Framework (DRF) that lets users track E-Cards that they want to create, display, or follow other users doing the same! Cards are listed with important information like title, user, font, or border options.
+
+# Link to Production Application
+https://hyena-ecards.onrender.com
 
 **All requests, except registration and log in, require authentication**.
 
@@ -27,6 +12,31 @@ This application is an API built with Django REST Framework (DRF) that lets user
 Requests to endpoints requiring authentication should set the `Authorization` header to `Token <token>`, where `<token>` is the token received in the login response.
 
 POST requests with a body should set the `Content-Type` header to `application/json`.
+
+Documentation starts here: 
+
+### API ENDPOINTS
+
+| HTTP Verbs | Endpoints          | Action                                   |
+| ---------- | ------------------ | ---------------------------------------- |
+| GET        | /api-auth/login    | To login to an existing account          |
+| GET        | /api/user/login    | Login to account                         |
+| GET        | /api/user/logout   | Logout from account                      |
+| GET        | /auth/users        | Register new user                        |
+| GET        | /ecard/            | Gets list of all cards created           |
+| POST       | /ecard/            | Create a new ecard                       |
+| GET        | /ecard/<int:pk>    | Get a specific ecard's details           |
+| GET        | /ecard/mine/       | Gets list of all current users cards     |
+| PUT        | /ecard/<int:pk>    | Updates the card with specified id       |
+| DELETE     | /ecard/<int:pk>    | Deletes card with specific id            |
+| GET        | /comment/          | Get a list of all comments               |
+| POST       | /comment/          | Create a new comment                     |
+| GET        | /comments/<int:pk> | View a Specific comment                  |
+| PUT        | /comments/<int:pk> | Updates the comment with specified id    |
+| DELETE     | /comments/<int:pk> | Deletes comment with specific id         |
+| GET        | /follower/         | Get a list of followers for current user |
+| POST       | /follower/         | Follow a User                            |
+| POST       | /follower/         | Unfollow a User                          |
 
 ## Register a new user
 
@@ -77,14 +87,14 @@ POST auth/token/login
 }
 ```
 
-## List all Cards for particular user
+## List all Cards
 
 Requires authentication.
 
 ### request
 
 ```txt
-GET ecards/user/
+GET ecards/
 ```
 
 ### response
@@ -183,34 +193,29 @@ POST ecards/
 
 ```json
 {
-  "title": "example",
-  "border_style": "SOLID",
-  "font_family": "UBUNTO",
-  "text_alignment": "LEFT",
-  "outer_msg": "blabla",
-  "inner_msg": "yes sir"
+	"title": "Happy Columbus Day!",
+	"front_message": "You know it wasn't really Columbus that discovered America...",
+	"back_message": "It was the Vikings!"
 }
 ```
 
 ### response
 
 ```json
-{
-  "id": 7,
-  "title": "example",
-  "user": 1,
-  "border_style": "SOLID",
-  "border_color": "BLACK",
-  "font_family": "UBUNTO",
-  "font_color": "BLACK",
-  "text_alignment": "LEFT",
-  "outer_msg": "blabla",
-  "inner_msg": "yes sir",
-  "created_at": "2022-11-17T18:13:32.950733Z",
-  "updated_at": "2022-11-17T18:13:32.950747Z",
-  "published": false
+
+	"id": 6,
+	"title": "Happy Columbus Day!",
+	"front_message": "You know it wasn't really Columbus that discovered America...",
+	"back_message": "It was the Vikings!",
+	"card_color": null,
+	"font": null,
+	"text_align": null,
+	"border_color": null,
+	"border_choices": null,
+	"owner": "swordfish23"
 }
 ```
+*** Please note that default values are null for certain parameters, may institute defaults in the future.
 
 ## Look at cards details
 
@@ -219,24 +224,23 @@ Requires authentication.
 ### request
 
 ```txt
-GET ecards/<int:pk>
+GET ecard/<int:pk>
 ```
 
 ### response
 
 ```json
 {
-  "id": 3,
-  "owner": "swordfish23",
-  "title": "This field is required.",
-  "border_choices": null,
-  "border_color": "ORANGE",
-  "card_color": "Yellow",
-  "font": null,
-  "text_align": null,
-  "front_message": "This field is required.",
-  "back_message": "This field is required.",
-  "created_date": "2022-11-22T17:49:35.191706Z"
+	"id": 1,
+	"title": "Trolling",
+	"front_message": "Sometime I troll all of you into thinking I'm the best",
+	"back_message": "Just kidding I am the actual worst",
+	"card_color": "Blue",
+	"font": "regular",
+	"text_align": "left",
+	"border_color": "Blue",
+	"border_choices": "dotted",
+	"owner": "Bigchonga"
 }
 ```
 
@@ -262,40 +266,6 @@ GET profile/<int:id>
 }
 ```
 
-## To update a user profile
-
-Requires authentication. NOTE THAT username is required in order to update other attributes
-
-### request
-
-```txt
-PUT profile/<int:id>
-```
-
-```json
-{
-  "id": 1,
-  "name": null,
-  "bio": "The greatest test",
-  "username": "admin",
-  "email": ""
-}
-```
-
-### response
-
-```json
-[
-  {
-    "id": 1,
-    "name": null,
-    "bio": "The greatest test",
-    "username": "admin",
-    "email": ""
-  }
-]
-```
-
 ## List all comments
 
 ### request
@@ -303,7 +273,7 @@ PUT profile/<int:id>
 Username and password are required.
 
 ```
-GET <BASE_URL>/comments
+GET <BASE_URL>/comment/
 
 ```
 
@@ -314,24 +284,23 @@ GET <BASE_URL>/comments
 
 [
 	{
-		"id": 3,
-		"card": 3,
-		"comment": "This is a comment by user on Ray's bday card!",
-		"commentor": 2
+		"id": 1,
+		"card": 1,
+		"comment": "What the actual FFFFFFF",
+		"user": "DanceMonkey"
 	},
 	{
 		"id": 2,
 		"card": 3,
-		"comment": "This is a comment on Ray's Birthday card by admin!",
-		"commentor": 1
+		"comment": "I'll be there!!",
+		"user": "GodMode"
 	},
 	{
-		"id": 1,
-		"card": 1,
-		"comment": "This is a comment by admin on Autumn 2022 card!",
-		"commentor": 1
+		"id": 3,
+		"card": 2,
+		"comment": "Just be here already!!!",
+		"user": "GodMode"
 	}
-]
 
 ```
 
@@ -342,7 +311,7 @@ GET <BASE_URL>/comments
 Username and password are required.
 
 ```
-GET <BASE_URL>/comments/1
+GET <BASE_URL>/comment/2/
 
 ```
 
@@ -352,22 +321,22 @@ GET <BASE_URL>/comments/1
 200 OK
 
 {
-	"id": 1,
-	"card": 1,
-	"comment": "This is a comment by admin on Autumn 2022 card!",
-	"commentor": 1
+	"id": 2,
+	"card": 3,
+	"comment": "I'll be there!!",
+	"user": "GodMode"
 }
 
 ```
 
-## List all Friends
+## List all Followers
 
 ### request
 
 Username and password are required.
 
 ```
-GET <BASE_URL>/friends
+GET <BASE_URL>/follower/
 
 ```
 
@@ -378,12 +347,9 @@ GET <BASE_URL>/friends
 
 [
 	{
-		"id": 6,
-		"user": 2
-	},
-	{
-		"id": 9,
-		"user": 3
+		"user": 3,
+		"being_followed": 4,
+		"created": "2022-12-01T14:43:46.105659Z"
 	}
 ]
 
@@ -410,71 +376,6 @@ GET <BASE_URL>/friends/6
 	"user": 2
 }
 
-
-## List all favorites
-
-### request
-
-Username and password are required.
-
-```
-
-GET <BASE_URL>/favorites
-
-````
-
-### response
-
-```json
-200 OK
-
-[
-	{
-		"id": 1,
-		"card": 1,
-		"user": 1,
-		"created_at": "2022-11-17T18:50:20.189108Z"
-	},
-	{
-		"id": 2,
-		"card": 2,
-		"user": 1,
-		"created_at": "2022-11-17T19:16:30.587099Z"
-	}
-]
-
-````
-
-## Favorite detail page
-
-### request
-
-Username and password are required.
-
-```
-GET <BASE_URL>/favorites/2
-
-```
-
-### response
-
-```json
-200 OK
-
-{
-	"id": 2,
-	"card": 2,
-	"user": 1,
-	"created_at": "2022-11-17T19:16:30.587099Z"
-}
-
-```
-
-| POST | /ecard | Create new ecard/post |
-| GET | /ecard/<int:pk> | Specific card/post |
-| POST | /comments | Make a comment |
-| GET | /comments/<int:pk> | Specific comment |
-| GET | /auth/users | Register new user |
 
 ### New Follower other users
 
