@@ -329,11 +329,11 @@ GET <BASE_URL>/comment/2/
 
 ```
 
-## List all Followers
+## Get a List of Followers
 
 ### request
 
-Username and password are required.
+Authorization is required.
 
 ```
 GET <BASE_URL>/follower/
@@ -347,6 +347,7 @@ GET <BASE_URL>/follower/
 
 [
 	{
+		"id": 6,
 		"user": 3,
 		"being_followed": 4,
 		"created": "2022-12-01T14:43:46.105659Z"
@@ -355,16 +356,21 @@ GET <BASE_URL>/follower/
 
 ```
 
-## Friends detail page
+## Follow a User
+
+Authorization is required.
 
 ### request
 
-Username and password are required.
+```
+POST <BASE_URL>/follower/
 
 ```
-GET <BASE_URL>/friends/6
 
-```
+{
+	"user": "This field is required.",
+	"being_followed": "This field is required."
+}
 
 ### response
 
@@ -372,51 +378,9 @@ GET <BASE_URL>/friends/6
 200 OK
 
 {
-	"id": 6,
-	"user": 2
+	"id": 19,
+	"user": 2,
+	"being_followed": 3,
+	"created": "2022-12-01T20:55:23.430178Z"
 }
 
-
-### New Follower other users
-
-### request
-
-Authenticaiton is required
-
-,,,
-POST <BASE_URL>/follower/
-,,,
-
-### Response
-
-,,,json
-201 created
-
-{
-"user": 1,
-"being_followed": 3,
-"created": "2022-11-29T21:14:56.111414Z"
-}
-
-### Get a list of followers
-
-### request
-
-Authenticaiton is required
-
-,,,
-POST <BASE_URL>/follower/
-,,,
-
-### Response
-
-,,,json
-200 OK
-
-[
-{
-"user": 1,
-"being_followed": 3,
-"created": "2022-11-29T21:14:56.111414Z"
-}
-]
