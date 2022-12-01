@@ -38,7 +38,7 @@ class SocialCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SocialCard
-        fields = ('__all__',)
+        fields = ('id', 'title', 'front_message', 'back_message', 'card_color', 'font', 'text_align', 'border_color', 'border_choices', 'owner')
 
 
 class CommentsSerializer(serializers.ModelSerializer):
