@@ -10,6 +10,5 @@ urlpatterns = [
     path('', include('hyena.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
-    path('', include('hyena.urls')),
 
 ]
