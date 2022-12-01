@@ -42,7 +42,7 @@ class SocialCardSerializer(serializers.ModelSerializer):
 
 
 class CommentsSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.id')
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Comments
